@@ -84,7 +84,7 @@ export function RightPanel({
     }} className="fixed lg:static inset-y-0 right-0 z-50 w-[360px] bg-white border-l border-claude-border flex flex-col lg:translate-x-0">
         {/* Header */}
         <div className="p-4 border-b border-claude-border/50 flex items-center justify-between">
-          <h2 className="font-serif font-semibold text-base text-claude-text tracking-tight">
+          <h2 className="font-sans font-semibold text-base text-claude-text tracking-tight">
             Доказательная база
           </h2>
           <button onClick={onClose} className="lg:hidden p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200">
@@ -95,7 +95,7 @@ export function RightPanel({
         {/* Tabs */}
         <div className="border-b border-claude-border/50 bg-claude-bg/30">
           <div className="flex overflow-x-auto no-scrollbar">
-            {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 min-w-0 px-3 py-3 text-[11px] font-medium uppercase tracking-wider transition-all duration-200 border-b-2 ${activeTab === tab.id ? 'border-claude-accent text-claude-accent' : 'border-transparent text-claude-subtext hover:text-claude-text'}`}>
+            {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 min-w-0 px-3 py-3 text-[11px] font-medium uppercase tracking-wider transition-all duration-200 border-b-2 ${activeTab === tab.id ? 'border-claude-text text-claude-text' : 'border-transparent text-claude-subtext hover:text-claude-text'}`}>
                 <div className="flex items-center justify-center gap-1.5">
                   <tab.icon size={13} strokeWidth={2} />
                   <span className="hidden sm:inline truncate">{tab.label}</span>
@@ -111,7 +111,7 @@ export function RightPanel({
                 <span className="text-[11px] font-semibold text-claude-subtext uppercase tracking-wider">
                   Найдено: {mockDecisions.length}
                 </span>
-                <button className="text-[11px] text-claude-accent hover:underline font-medium">
+                <button className="text-[11px] text-claude-text hover:underline font-medium">
                   Экспорт
                 </button>
               </div>
@@ -122,15 +122,15 @@ export function RightPanel({
           }} animate={{
             opacity: 1,
             y: 0
-          }} className="bg-white border border-claude-border rounded-lg p-3 hover:border-claude-accent/30 hover:shadow-sm transition-all duration-200 cursor-pointer group">
+          }} className="bg-white border border-claude-border rounded-lg p-3 hover:border-claude-subtext/30 hover:shadow-sm transition-all duration-200 cursor-pointer group">
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <Gavel size={14} className="text-claude-accent flex-shrink-0" strokeWidth={2} />
+                      <Gavel size={14} className="text-claude-text flex-shrink-0" strokeWidth={2} />
                       <span className="font-mono text-[12px] font-medium text-claude-text">
                         {decision.number}
                       </span>
                     </div>
-                    <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium uppercase tracking-wide ${decision.status === 'active' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                    <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium uppercase tracking-wide ${decision.status === 'active' ? 'bg-claude-bg text-claude-text border border-claude-border' : 'bg-claude-subtext/10 text-claude-subtext border border-claude-border'}`}>
                       {decision.status === 'active' ? 'В силе' : 'Отменено'}
                     </span>
                   </div>
@@ -142,7 +142,7 @@ export function RightPanel({
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="w-16 h-1 bg-claude-bg rounded-full overflow-hidden">
-                        <div className="h-full bg-claude-accent rounded-full" style={{
+                        <div className="h-full bg-claude-text/60 rounded-full" style={{
                     width: `${decision.relevance}%`
                   }} />
                       </div>
@@ -150,7 +150,7 @@ export function RightPanel({
                         {decision.relevance}%
                       </span>
                     </div>
-                    <ExternalLink size={12} className="text-claude-subtext/50 group-hover:text-claude-accent transition-colors" strokeWidth={2} />
+                    <ExternalLink size={12} className="text-claude-subtext/50 group-hover:text-claude-text transition-colors" strokeWidth={2} />
                   </div>
                 </motion.div>)}
             </div>}
@@ -168,9 +168,9 @@ export function RightPanel({
           }} animate={{
             opacity: 1,
             y: 0
-          }} className="bg-white border border-claude-border rounded-lg p-3 hover:border-claude-accent/30 hover:shadow-sm transition-all duration-200 cursor-pointer group">
+          }} className="bg-white border border-claude-border rounded-lg p-3 hover:border-claude-subtext/30 hover:shadow-sm transition-all duration-200 cursor-pointer group">
                   <div className="flex items-start gap-2 mb-2">
-                    <BookOpen size={14} className="text-claude-accent flex-shrink-0 mt-0.5" strokeWidth={2} />
+                    <BookOpen size={14} className="text-claude-text flex-shrink-0 mt-0.5" strokeWidth={2} />
                     <div className="flex-1 min-w-0">
                       <div className="font-medium text-[13px] text-claude-text mb-1">
                         {reg.title}
@@ -184,7 +184,7 @@ export function RightPanel({
                     <span className="text-[10px] text-claude-subtext">
                       Обновлено: {reg.updated}
                     </span>
-                    <ExternalLink size={12} className="text-claude-subtext/50 group-hover:text-claude-accent transition-colors" strokeWidth={2} />
+                    <ExternalLink size={12} className="text-claude-subtext/50 group-hover:text-claude-text transition-colors" strokeWidth={2} />
                   </div>
                 </motion.div>)}
             </div>}
@@ -209,14 +209,14 @@ export function RightPanel({
                   Проверка актуальности
                 </span>
               </div>
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="bg-claude-bg border border-claude-border rounded-lg p-4">
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={18} className="text-green-600 flex-shrink-0" strokeWidth={2} />
+                  <CheckCircle size={18} className="text-claude-text flex-shrink-0" strokeWidth={2} />
                   <div>
-                    <div className="font-medium text-[13px] text-green-900 mb-1">
+                    <div className="font-medium text-[13px] text-claude-text mb-1">
                       Все источники актуальны
                     </div>
-                    <p className="text-[11px] text-green-700 leading-relaxed">
+                    <p className="text-[11px] text-claude-subtext leading-relaxed">
                       Последняя проверка: сегодня в 14:30
                     </p>
                   </div>
@@ -225,19 +225,19 @@ export function RightPanel({
               <div className="space-y-2 mt-4">
                 <div className="flex items-center justify-between text-[11px] py-2">
                   <span className="text-claude-subtext">Судебные решения</span>
-                  <span className="text-green-600 font-medium">
+                  <span className="text-claude-text font-medium">
                     ✓ Актуально
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-[11px] py-2">
                   <span className="text-claude-subtext">Нормативные акты</span>
-                  <span className="text-green-600 font-medium">
+                  <span className="text-claude-text font-medium">
                     ✓ Актуально
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-[11px] py-2">
                   <span className="text-claude-subtext">Комментарии</span>
-                  <span className="text-green-600 font-medium">
+                  <span className="text-claude-text font-medium">
                     ✓ Актуально
                   </span>
                 </div>

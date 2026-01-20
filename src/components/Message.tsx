@@ -1,62 +1,201 @@
-import React from 'react';
-import { Copy, RotateCw, User } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { Copy, RotateCw, User, Star, ThumbsUp, ThumbsDown, Quote, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { DecisionCard, Decision } from './DecisionCard';
+import { AnalyticsBlock } from './AnalyticsBlock';
+import { ThinkingSteps } from './ThinkingSteps';
 export type MessageRole = 'user' | 'assistant';
 export interface MessageProps {
   id: string;
   role: MessageRole;
   content: string;
   isStreaming?: boolean;
+  decisions?: Decision[];
+  analytics?: {
+    totalCases: number;
+    satisfied: number;
+    rejected: number;
+    partial: number;
+    trend: 'up' | 'down' | 'stable';
+    interpretation: string;
+  };
+  citations?: Array<{
+    text: string;
+    source: string;
+  }>;
+  thinkingSteps?: Array<{
+    id: string;
+    title: string;
+    content?: string;
+    isComplete: boolean;
+  }>;
 }
 export function Message({
   role,
   content,
-  isStreaming
+  isStreaming,
+  decisions,
+  analytics,
+  citations,
+  thinkingSteps
 }: MessageProps) {
   const isUser = role === 'user';
+  const [showThinking, setShowThinking] = useState(false);
+  // Parse content for legal citations and headings
+  const renderContent = (text: string) => {
+    return <div className="space-y-4">
+        {text.split('\n\n').map((paragraph, idx) => {
+        // Check if this is a heading (starts with #)
+        if (paragraph.startsWith('# ')) {
+          return <h3 key={idx} className="font-sans text-[19px] font-bold text-claude-text mt-6 mb-3">
+                {paragraph.replace('# ', '')}
+              </h3>;
+        }
+        // Check if this is a subheading (starts with ##)
+        if (paragraph.startsWith('## ')) {
+          return <h4 key={idx} className="font-sans text-[17px] font-semibold text-claude-text mt-5 mb-2">
+                {paragraph.replace('## ', '')}
+              </h4>;
+        }
+        return <p key={idx} className="whitespace-pre-wrap m-0 leading-[1.7]">
+              {paragraph.split(/(ЦКУ|ГКУ|КПК|ЦПК)\s+(ст\.|статт[яі])\s*\d+/g).map((part, i) => {
+            if (['ЦКУ', 'ГКУ', 'КПК', 'ЦПК'].includes(part)) {
+              return <span key={i} className="font-semibold text-claude-text">
+                        {part}
+                      </span>;
+            }
+            return <span key={i}>{part}</span>;
+          })}
+            </p>;
+      })}
+      </div>;
+  };
   return <motion.div initial={{
     opacity: 0,
-    y: 12
+    y: 8
   }} animate={{
     opacity: 1,
     y: 0
   }} transition={{
-    duration: 0.5,
+    duration: 0.4,
     ease: [0.22, 1, 0.36, 1]
-  }} className="group w-full py-6 md:py-7">
-      <div className="max-w-3xl mx-auto px-4 md:px-6 flex gap-4 md:gap-5">
-        {/* Avatar */}
-        <div className="flex-shrink-0 mt-0.5">
-          {isUser ? <div className="w-8 h-8 rounded-full bg-claude-subtext/15 flex items-center justify-center text-claude-subtext">
-              <User size={15} strokeWidth={2} />
-            </div> : <div className="w-8 h-8 rounded-lg overflow-hidden bg-[#1E293B] flex items-center justify-center shadow-sm">
-              <img src="/Image_1.jpg" alt="Lex" className="w-full h-full object-cover" />
-            </div>}
-        </div>
+  }} className="group w-full py-5 md:py-6">
+      <div className="max-w-3xl mx-auto px-4 md:px-6">
+        {/* User Message */}
+        {isUser ? <div className="flex justify-end">
+            <div className="max-w-[85%] bg-claude-bg/60 backdrop-blur-sm border border-claude-border/50 rounded-2xl px-4 py-3 shadow-sm">
+              <p className="font-sans text-[15px] text-claude-text leading-relaxed whitespace-pre-wrap">
+                {content}
+              </p>
+            </div>
+          </div> /* Assistant Message */ : <div className="flex gap-3 md:gap-4">
+            {/* Avatar */}
+            <div className="flex-shrink-0 mt-1">
+              <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+                <img src="/Image_1.jpg" alt="Lex" className="w-full h-full object-cover" />
+              </div>
+            </div>
 
-        {/* Content */}
-        <div className="flex-1 min-w-0 space-y-3">
-          <div className="flex items-center">
-            <span className="font-sans font-semibold text-[13px] text-claude-text tracking-tight">
-              {isUser ? 'You' : 'Lex'}
-            </span>
-          </div>
+            {/* Content */}
+            <div className="flex-1 min-w-0 space-y-4">
+              {/* Thinking Steps */}
+              {thinkingSteps && thinkingSteps.length > 0 && <div>
+                  <button onClick={() => setShowThinking(!showThinking)} className="flex items-center gap-2 text-[13px] text-claude-subtext hover:text-claude-text transition-colors mb-2">
+                    <ChevronDown size={14} className={`transition-transform ${showThinking ? 'rotate-180' : ''}`} strokeWidth={2} />
+                    <span className="font-medium">
+                      Розпланував дослідження API документації та вимог
+                      автентифікації
+                    </span>
+                  </button>
 
-          <div className={`max-w-none ${isUser ? 'font-sans text-[15px] leading-relaxed text-claude-text' : 'font-serif text-[17px] leading-[1.7] text-claude-text'}`}>
-            <p className="whitespace-pre-wrap m-0">{content}</p>
-            {isStreaming && <span className="inline-block w-[3px] h-[18px] ml-1 bg-claude-accent animate-pulse align-middle rounded-[1px]" />}
-          </div>
+                  <AnimatePresence>
+                    {showThinking && <ThinkingSteps steps={thinkingSteps} isThinking={isStreaming} />}
+                  </AnimatePresence>
+                </div>}
 
-          {/* Actions (Only visible on hover for assistant) */}
-          {!isUser && !isStreaming && <div className="flex items-center gap-1 pt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <button className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-md transition-all duration-200" aria-label="Copy message">
-                <Copy size={14} strokeWidth={2} />
-              </button>
-              <button className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-md transition-all duration-200" aria-label="Regenerate response">
-                <RotateCw size={14} strokeWidth={2} />
-              </button>
-            </div>}
-        </div>
+              {/* Main Content */}
+              <div className="font-sans text-[16px] text-claude-text">
+                {renderContent(content)}
+                {isStreaming && <span className="inline-block w-[2px] h-[18px] ml-1 bg-claude-text/40 animate-pulse align-middle rounded-[1px]" />}
+              </div>
+
+              {/* Citations */}
+              {citations && citations.length > 0 && <div className="space-y-3 mt-5">
+                  {citations.map((citation, idx) => <motion.div key={idx} initial={{
+              opacity: 0,
+              x: -10
+            }} animate={{
+              opacity: 1,
+              x: 0
+            }} transition={{
+              duration: 0.3,
+              delay: idx * 0.1
+            }} className="bg-claude-bg/50 backdrop-blur-sm border-l-3 border-claude-subtext/30 pl-4 pr-4 py-3 rounded-r-lg">
+                      <div className="flex items-start gap-3">
+                        <div className="p-1 bg-white/80 rounded-md mt-0.5">
+                          <Quote size={11} className="text-claude-subtext" strokeWidth={2.5} />
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-sans text-[14px] text-claude-text italic leading-relaxed mb-1.5">
+                            "{citation.text}"
+                          </p>
+                          <p className="text-[11px] text-claude-subtext font-semibold">
+                            — {citation.source}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>)}
+                </div>}
+
+              {/* Decision Cards */}
+              {decisions && decisions.length > 0 && <div className="mt-5 space-y-3">
+                  <div className="flex items-center gap-2 text-[13px] font-semibold text-claude-text">
+                    <div className="w-1 h-4 bg-claude-subtext/40 rounded-full" />
+                    Релевантные судебные решения
+                    <span className="text-[11px] font-semibold text-claude-subtext bg-claude-subtext/8 px-2 py-0.5 rounded-full">
+                      {decisions.length}
+                    </span>
+                  </div>
+                  <div className="grid gap-3">
+                    {decisions.map((decision, idx) => <motion.div key={decision.id} initial={{
+                opacity: 0,
+                y: 10
+              }} animate={{
+                opacity: 1,
+                y: 0
+              }} transition={{
+                duration: 0.3,
+                delay: idx * 0.1
+              }}>
+                        <DecisionCard decision={decision} />
+                      </motion.div>)}
+                  </div>
+                </div>}
+
+              {/* Analytics Block */}
+              {analytics && <AnalyticsBlock data={analytics} />}
+
+              {/* Actions */}
+              {!isStreaming && <div className="flex items-center gap-1 pt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <button className="p-1.5 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-md transition-all duration-200" aria-label="Copy message" title="Копировать">
+                    <Copy size={13} strokeWidth={2} />
+                  </button>
+                  <button className="p-1.5 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-md transition-all duration-200" aria-label="Save to favorites" title="Сохранить в избранное">
+                    <Star size={13} strokeWidth={2} />
+                  </button>
+                  <button className="p-1.5 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-md transition-all duration-200" aria-label="Regenerate response" title="Регенерировать">
+                    <RotateCw size={13} strokeWidth={2} />
+                  </button>
+                  <div className="w-px h-3 bg-claude-border mx-1" />
+                  <button className="p-1.5 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/10 rounded-md transition-all duration-200" aria-label="Good response" title="Хороший ответ">
+                    <ThumbsUp size={13} strokeWidth={2} />
+                  </button>
+                  <button className="p-1.5 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/10 rounded-md transition-all duration-200" aria-label="Bad response" title="Плохой ответ">
+                    <ThumbsDown size={13} strokeWidth={2} />
+                  </button>
+                </div>}
+            </div>
+          </div>}
       </div>
     </motion.div>;
 }
