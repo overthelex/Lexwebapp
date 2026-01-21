@@ -38,7 +38,7 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
           <button
             type="button"
             className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200 flex-shrink-0"
-            aria-label="Add attachment">
+            aria-label="Додати вкладення">
 
             <Plus size={18} strokeWidth={2} />
           </button>
@@ -48,7 +48,7 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Reply..."
+            placeholder="Відповісти..."
             disabled={disabled}
             rows={1}
             className="flex-1 py-2 px-2 bg-transparent border-none resize-none focus:ring-0 focus:outline-none text-claude-text placeholder:text-claude-subtext/40 font-sans text-[15px] leading-relaxed max-h-[200px] overflow-hidden"
@@ -61,7 +61,7 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
             <button
               type="button"
               className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200"
-              aria-label="AI suggestions">
+              aria-label="AI підказки">
 
               <Sparkles size={18} strokeWidth={2} />
             </button>
@@ -69,7 +69,7 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
               onClick={handleSubmit}
               disabled={!input.trim() || disabled}
               className={`p-2 rounded-lg transition-all duration-200 ${input.trim() && !disabled ? 'bg-claude-text text-white hover:bg-claude-text/90 shadow-sm active:scale-95' : 'bg-claude-subtext/10 text-claude-subtext/30 cursor-not-allowed'}`}
-              aria-label="Send message">
+              aria-label="Надіслати повідомлення">
 
               <Send size={18} strokeWidth={2} />
             </button>

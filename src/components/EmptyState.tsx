@@ -6,10 +6,10 @@ interface EmptyStateProps {
 }
 export function EmptyState({ onSelectPrompt }: EmptyStateProps) {
   const prompts = [
-  'Помогите составить исковое заявление о взыскании задолженности',
-  'Найдите практику ВС по договорам поставки',
-  'Проанализируйте основания для отмены решения суда',
-  'Какие документы нужны для банкротства физлица?'];
+  'Допоможіть скласти позовну заяву про стягнення заборгованості',
+  'Знайдіть практику ВС по договорах поставки',
+  'Проаналізуйте підстави для скасування рішення суду',
+  'Які документи потрібні для банкрутства фізичної особи?'];
 
   return (
     <div className="flex-1 flex items-center justify-center p-4 overflow-y-auto">
@@ -30,11 +30,11 @@ export function EmptyState({ onSelectPrompt }: EmptyStateProps) {
           className="text-center mb-12">
 
           <h1 className="font-sans text-3xl md:text-4xl font-bold text-claude-text mb-4 tracking-tight">
-            Добро пожаловать в Lex
+            Ласкаво просимо до Lex
           </h1>
           <p className="font-sans text-claude-subtext text-base md:text-lg leading-relaxed max-w-xl mx-auto">
-            Ваш AI-ассистент для работы с украинским правом. Анализ практики,
-            подготовка документов, правовые консультации.
+            Ваш AI-асистент для роботи з українським правом. Аналіз практики,
+            підготовка документів, правові консультації.
           </p>
         </motion.div>
 
