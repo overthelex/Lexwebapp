@@ -454,27 +454,6 @@ export function ChatLayout() {
 
 
       <main className="flex-1 flex flex-col min-w-0 relative h-full">
-        {/* Top Bar */}
-        {pageTitle &&
-        <div className="sticky top-0 z-10 bg-white border-b border-claude-border px-4 md:px-8 py-4 flex items-center justify-between">
-            <h1 className="text-base font-sans text-claude-text font-medium">
-              {pageTitle}
-            </h1>
-            <div className="flex items-center gap-2">
-              <button
-              onClick={() => setCurrentView('case-analysis')}
-              className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200">
-
-                <FileText size={18} strokeWidth={2} />
-              </button>
-              <button className="px-3 py-1.5 text-[13px] font-medium text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200 flex items-center gap-2 font-sans">
-                <Share2 size={14} strokeWidth={2} />
-                Share
-              </button>
-            </div>
-          </div>
-        }
-
         <header className="hidden lg:flex items-center justify-between px-6 py-3 border-b border-claude-border bg-white/80 backdrop-blur-sm sticky top-0 z-30">
           <div className="flex items-center gap-3">
             <h1 className="font-sans text-[15px] text-claude-text font-medium">
