@@ -95,7 +95,7 @@ export function RightPanel({
         {/* Tabs */}
         <div className="border-b border-claude-border/50 bg-claude-bg/30">
           <div className="flex overflow-x-auto no-scrollbar">
-            {tabs.map(tab => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 min-w-0 px-3 py-3 text-[11px] font-medium uppercase tracking-wider transition-all duration-200 border-b-2 ${activeTab === tab.id ? 'border-claude-text text-claude-text' : 'border-transparent text-claude-subtext hover:text-claude-text'}`}>
+            {tabs.map((tab) => <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 min-w-0 px-3 py-3 text-[11px] font-medium uppercase tracking-wider transition-all duration-200 border-b-2 ${activeTab === tab.id ? 'border-claude-text text-claude-text' : 'border-transparent text-claude-subtext hover:text-claude-text'}`}>
                 <div className="flex items-center justify-center gap-1.5">
                   <tab.icon size={13} strokeWidth={2} />
                   <span className="hidden sm:inline truncate">{tab.label}</span>
@@ -116,7 +116,7 @@ export function RightPanel({
                 </button>
               </div>
 
-              {mockDecisions.map(decision => <motion.div key={decision.id} initial={{
+              {mockDecisions.map((decision) => <motion.div key={decision.id} initial={{
             opacity: 0,
             y: 10
           }} animate={{
@@ -162,7 +162,7 @@ export function RightPanel({
                 </span>
               </div>
 
-              {mockRegulations.map(reg => <motion.div key={reg.id} initial={{
+              {mockRegulations.map((reg) => <motion.div key={reg.id} initial={{
             opacity: 0,
             y: 10
           }} animate={{

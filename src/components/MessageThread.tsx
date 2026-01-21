@@ -16,7 +16,7 @@ export function MessageThread({
   return <div className="flex-1 overflow-y-auto scroll-smooth">
       <div className="flex flex-col">
         <div className="h-4 md:h-6" />
-        {messages.map(message => <Message key={message.id} {...message} />)}
+        {messages.map((message) => <Message key={message.id} {...message} />)}
         <div ref={bottomRef} className="h-4" />
       </div>
     </div>;

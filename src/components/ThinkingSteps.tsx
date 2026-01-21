@@ -17,7 +17,7 @@ export function ThinkingSteps({
 }: ThinkingStepsProps) {
   const [expandedSteps, setExpandedSteps] = useState<Set<string>>(new Set());
   const toggleStep = (stepId: string) => {
-    setExpandedSteps(prev => {
+    setExpandedSteps((prev) => {
       const next = new Set(prev);
       if (next.has(stepId)) {
         next.delete(stepId);
@@ -33,7 +33,7 @@ export function ThinkingSteps({
       if (expandedSteps.size === steps.length) {
         setExpandedSteps(new Set());
       } else {
-        setExpandedSteps(new Set(steps.map(s => s.id)));
+        setExpandedSteps(new Set(steps.map((s) => s.id)));
       }
     }} className="flex items-center gap-2 text-[13px] text-claude-subtext hover:text-claude-text transition-colors group w-full">
         <ChevronUp size={14} className={`transition-transform ${expandedSteps.size === 0 ? 'rotate-180' : ''}`} strokeWidth={2} />
@@ -43,7 +43,7 @@ export function ThinkingSteps({
 
       {/* Steps */}
       <AnimatePresence>
-        {steps.map(step => <motion.div key={step.id} initial={{
+        {steps.map((step) => <motion.div key={step.id} initial={{
         opacity: 0,
         height: 0
       }} animate={{

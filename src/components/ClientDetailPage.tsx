@@ -1,6 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Mail, Phone, MapPin, Briefcase, Calendar, FileText, MessageSquare, Edit, MoreVertical, Building } from 'lucide-react';
+import {
+  ArrowLeft,
+  Mail,
+  Phone,
+  MapPin,
+  Briefcase,
+  Calendar,
+  FileText,
+  MessageSquare,
+  Edit,
+  MoreVertical,
+  Building } from
+'lucide-react';
 interface Client {
   id: string;
   name: string;
@@ -16,35 +28,50 @@ interface ClientDetailPageProps {
   client: Client;
   onBack: () => void;
 }
-export function ClientDetailPage({
-  client,
-  onBack
-}: ClientDetailPageProps) {
-  return <div className="flex-1 h-full overflow-y-auto bg-claude-bg p-4 md:p-8 lg:p-12">
+export function ClientDetailPage({ client, onBack }: ClientDetailPageProps) {
+  return (
+    <div className="flex-1 h-full overflow-y-auto bg-claude-bg p-4 md:p-8 lg:p-12">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Back Button */}
-        <button onClick={onBack} className="flex items-center gap-2 text-claude-subtext hover:text-claude-text transition-colors group">
-          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-claude-subtext hover:text-claude-text transition-colors group">
+
+          <ArrowLeft
+            size={18}
+            className="group-hover:-translate-x-1 transition-transform" />
+
           <span className="font-sans text-sm">Назад к списку клиентов</span>
         </button>
 
         {/* Header Section */}
-        <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} transition={{
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1]
-      }} className="relative bg-white rounded-2xl p-6 md:p-8 border border-claude-border shadow-sm overflow-hidden">
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20
+          }}
+          animate={{
+            opacity: 1,
+            y: 0
+          }}
+          transition={{
+            duration: 0.5,
+            ease: [0.22, 1, 0.36, 1]
+          }}
+          className="relative bg-white rounded-2xl p-6 md:p-8 border border-claude-border shadow-sm overflow-hidden">
+
           <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-claude-accent/10 to-claude-bg" />
 
           <div className="relative flex flex-col md:flex-row items-start md:items-end gap-6 pt-12">
             <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-claude-sidebar border-4 border-white shadow-md flex items-center justify-center text-3xl font-serif text-claude-subtext relative">
-              {client.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
-              <div className={`absolute bottom-2 right-2 w-4 h-4 rounded-full border-2 border-white ${client.status === 'active' ? 'bg-green-500' : 'bg-gray-400'}`} />
+              {client.name.
+              split(' ').
+              map((n) => n[0]).
+              slice(0, 2).
+              join('')}
+              <div
+                className={`absolute bottom-2 right-2 w-4 h-4 rounded-full border-2 border-white ${client.status === 'active' ? 'bg-green-500' : 'bg-gray-400'}`} />
+
             </div>
 
             <div className="flex-1 mb-2">
@@ -56,7 +83,9 @@ export function ClientDetailPage({
                 {client.company}
               </p>
               <div className="mt-3 inline-flex items-center px-3 py-1 rounded-lg text-sm font-medium font-sans bg-claude-accent/10 text-claude-accent border border-claude-accent/20">
-                {client.type === 'corporate' ? 'Юридическое лицо' : 'Физическое лицо'}
+                {client.type === 'corporate' ?
+                'Юридическое лицо' :
+                'Физическое лицо'}
               </div>
             </div>
 
@@ -73,16 +102,21 @@ export function ClientDetailPage({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Contact Information */}
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5,
-          delay: 0.1
-        }} className="bg-white rounded-2xl p-6 border border-claude-border shadow-sm">
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20
+            }}
+            animate={{
+              opacity: 1,
+              y: 0
+            }}
+            transition={{
+              duration: 0.5,
+              delay: 0.1
+            }}
+            className="bg-white rounded-2xl p-6 border border-claude-border shadow-sm">
+
             <h2 className="text-xl font-serif text-claude-text mb-4">
               Контактная информация
             </h2>
@@ -95,7 +129,10 @@ export function ClientDetailPage({
                   <div className="text-xs text-claude-subtext font-sans mb-1">
                     Email
                   </div>
-                  <a href={`mailto:${client.email}`} className="text-sm text-claude-text font-sans hover:text-claude-accent transition-colors">
+                  <a
+                    href={`mailto:${client.email}`}
+                    className="text-sm text-claude-text font-sans hover:text-claude-accent transition-colors">
+
                     {client.email}
                   </a>
                 </div>
@@ -108,7 +145,10 @@ export function ClientDetailPage({
                   <div className="text-xs text-claude-subtext font-sans mb-1">
                     Телефон
                   </div>
-                  <a href={`tel:${client.phone}`} className="text-sm text-claude-text font-sans hover:text-claude-accent transition-colors">
+                  <a
+                    href={`tel:${client.phone}`}
+                    className="text-sm text-claude-text font-sans hover:text-claude-accent transition-colors">
+
                     {client.phone}
                   </a>
                 </div>
@@ -130,16 +170,21 @@ export function ClientDetailPage({
           </motion.div>
 
           {/* Activity Statistics */}
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5,
-          delay: 0.2
-        }} className="bg-white rounded-2xl p-6 border border-claude-border shadow-sm">
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20
+            }}
+            animate={{
+              opacity: 1,
+              y: 0
+            }}
+            transition={{
+              duration: 0.5,
+              delay: 0.2
+            }}
+            className="bg-white rounded-2xl p-6 border border-claude-border shadow-sm">
+
             <h2 className="text-xl font-serif text-claude-text mb-4">
               Статистика
             </h2>
@@ -172,21 +217,31 @@ export function ClientDetailPage({
           </motion.div>
 
           {/* Active Cases */}
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5,
-          delay: 0.3
-        }} className="bg-white rounded-2xl p-6 border border-claude-border shadow-sm md:col-span-2">
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20
+            }}
+            animate={{
+              opacity: 1,
+              y: 0
+            }}
+            transition={{
+              duration: 0.5,
+              delay: 0.3
+            }}
+            className="bg-white rounded-2xl p-6 border border-claude-border shadow-sm md:col-span-2">
+
             <h2 className="text-xl font-serif text-claude-text mb-4">
               Активные дела
             </h2>
             <div className="space-y-3">
-              {client.activeCases > 0 ? [1, 2, 3].slice(0, client.activeCases).map(i => <div key={i} className="flex items-center justify-between p-4 border border-claude-border/50 rounded-xl hover:bg-claude-bg/50 transition-colors cursor-pointer group">
+              {client.activeCases > 0 ?
+              [1, 2, 3].slice(0, client.activeCases).map((i) =>
+              <div
+                key={i}
+                className="flex items-center justify-between p-4 border border-claude-border/50 rounded-xl hover:bg-claude-bg/50 transition-colors cursor-pointer group">
+
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-claude-bg group-hover:bg-white rounded-lg text-claude-accent transition-colors">
                         <Briefcase size={18} />
@@ -203,40 +258,57 @@ export function ClientDetailPage({
                     <div className="text-xs text-claude-subtext font-sans">
                       {new Date(2024, 0, 15 - i).toLocaleDateString('ru-RU')}
                     </div>
-                  </div>) : <div className="text-center py-8 text-claude-subtext font-sans">
+                  </div>
+              ) :
+
+              <div className="text-center py-8 text-claude-subtext font-sans">
                   Нет активных дел
-                </div>}
+                </div>
+              }
             </div>
           </motion.div>
 
           {/* Recent Communications */}
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5,
-          delay: 0.4
-        }} className="bg-white rounded-2xl p-6 border border-claude-border shadow-sm md:col-span-2">
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20
+            }}
+            animate={{
+              opacity: 1,
+              y: 0
+            }}
+            transition={{
+              duration: 0.5,
+              delay: 0.4
+            }}
+            className="bg-white rounded-2xl p-6 border border-claude-border shadow-sm md:col-span-2">
+
             <h2 className="text-xl font-serif text-claude-text mb-4">
               Последние сообщения
             </h2>
             <div className="space-y-3">
-              {[{
-              type: 'email',
-              subject: 'Обновление по делу №А40-12345/2024',
-              date: '2024-01-15'
-            }, {
-              type: 'call',
-              subject: 'Телефонная консультация',
-              date: '2024-01-12'
-            }, {
-              type: 'meeting',
-              subject: 'Встреча в офисе',
-              date: '2024-01-08'
-            }].map((comm, i) => <div key={i} className="flex items-center gap-3 p-3 border border-claude-border/50 rounded-lg">
+              {[
+              {
+                type: 'email',
+                subject: 'Обновление по делу №А40-12345/2024',
+                date: '2024-01-15'
+              },
+              {
+                type: 'call',
+                subject: 'Телефонная консультация',
+                date: '2024-01-12'
+              },
+              {
+                type: 'meeting',
+                subject: 'Встреча в офисе',
+                date: '2024-01-08'
+              }].
+              map((comm, i) =>
+              <div
+                key={i}
+                className="flex items-center gap-3 p-3 border border-claude-border/50 rounded-lg">
+
                   <div className="p-2 bg-claude-bg rounded-lg text-claude-subtext">
                     <MessageSquare size={16} />
                   </div>
@@ -245,28 +317,38 @@ export function ClientDetailPage({
                       {comm.subject}
                     </div>
                     <div className="text-xs text-claude-subtext font-sans">
-                      {comm.type === 'email' ? 'Email' : comm.type === 'call' ? 'Звонок' : 'Встреча'}
+                      {comm.type === 'email' ?
+                    'Email' :
+                    comm.type === 'call' ?
+                    'Звонок' :
+                    'Встреча'}
                     </div>
                   </div>
                   <div className="text-xs text-claude-subtext font-sans">
                     {new Date(comm.date).toLocaleDateString('ru-RU')}
                   </div>
-                </div>)}
+                </div>
+              )}
             </div>
           </motion.div>
         </div>
 
         {/* Action Buttons */}
-        <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} transition={{
-        duration: 0.5,
-        delay: 0.5
-      }} className="flex flex-wrap gap-3">
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20
+          }}
+          animate={{
+            opacity: 1,
+            y: 0
+          }}
+          transition={{
+            duration: 0.5,
+            delay: 0.5
+          }}
+          className="flex flex-wrap gap-3">
+
           <button className="flex items-center gap-2 px-4 py-2.5 bg-claude-accent text-white rounded-xl font-medium text-sm hover:bg-[#C66345] transition-colors shadow-sm">
             <MessageSquare size={18} />
             Написать сообщение
@@ -281,5 +363,6 @@ export function ClientDetailPage({
           </button>
         </motion.div>
       </div>
-    </div>;
+    </div>);
+
 }

@@ -122,7 +122,7 @@ export function ProfilePage() {
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
-                {['Product Design', 'React', 'AI/ML', 'Typography', 'UX Research'].map(tag => <span key={tag} className="px-3 py-1 bg-claude-bg border border-claude-border rounded-full text-xs font-medium text-claude-subtext">
+                {['Product Design', 'React', 'AI/ML', 'Typography', 'UX Research'].map((tag) => <span key={tag} className="px-3 py-1 bg-claude-bg border border-claude-border rounded-full text-xs font-medium text-claude-subtext">
                     {tag}
                   </span>)}
               </div>
@@ -137,7 +137,7 @@ export function ProfilePage() {
                     </h3>
                   </div>
                   <div className="divide-y divide-claude-border/50">
-                    {group.items.map(item => <button key={item.label} className="w-full px-6 py-4 flex items-center justify-between hover:bg-claude-bg/50 transition-colors group">
+                    {group.items.map((item) => <button key={item.label} className="w-full px-6 py-4 flex items-center justify-between hover:bg-claude-bg/50 transition-colors group">
                         <div className="flex items-center gap-4">
                           <div className="p-2 bg-claude-bg rounded-lg text-claude-subtext group-hover:text-claude-accent transition-colors">
                             <item.icon size={18} />
@@ -176,7 +176,7 @@ export function ProfilePage() {
                 Activity
               </h2>
               <div className="space-y-4">
-                {stats.map(stat => <div key={stat.label} className="flex items-center gap-4 p-3 rounded-xl hover:bg-claude-bg/50 transition-colors border border-transparent hover:border-claude-border/50">
+                {stats.map((stat) => <div key={stat.label} className="flex items-center gap-4 p-3 rounded-xl hover:bg-claude-bg/50 transition-colors border border-transparent hover:border-claude-border/50">
                     <div className="p-2.5 rounded-lg bg-claude-accent/10 text-claude-accent">
                       <stat.icon size={18} />
                     </div>

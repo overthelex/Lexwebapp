@@ -4,10 +4,7 @@ interface ChatInputProps {
   onSend: (message: string) => void;
   disabled?: boolean;
 }
-export function ChatInput({
-  onSend,
-  disabled
-}: ChatInputProps) {
+export function ChatInput({ onSend, disabled }: ChatInputProps) {
   const [input, setInput] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const adjustHeight = () => {
@@ -34,26 +31,51 @@ export function ChatInput({
       textareaRef.current.style.height = 'auto';
     }
   };
-  return <div className="max-w-3xl mx-auto px-4 md:px-6 pb-2">
+  return (
+    <div className="max-w-3xl mx-auto px-4 md:px-6 pb-2">
       <div className="relative bg-white rounded-2xl border border-claude-border shadow-sm focus-within:shadow-md focus-within:border-claude-subtext/40 transition-all duration-300">
         <div className="flex items-end gap-2 p-2">
-          <button type="button" className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200 flex-shrink-0" aria-label="Add attachment">
+          <button
+            type="button"
+            className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200 flex-shrink-0"
+            aria-label="Add attachment">
+
             <Plus size={18} strokeWidth={2} />
           </button>
 
-          <textarea ref={textareaRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyDown} placeholder="Reply..." disabled={disabled} rows={1} className="flex-1 py-2 px-2 bg-transparent border-none resize-none focus:ring-0 focus:outline-none text-claude-text placeholder:text-claude-subtext/40 font-sans text-[15px] leading-relaxed max-h-[200px] overflow-hidden" style={{
-          minHeight: '40px'
-        }} />
+          <textarea
+            ref={textareaRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Reply..."
+            disabled={disabled}
+            rows={1}
+            className="flex-1 py-2 px-2 bg-transparent border-none resize-none focus:ring-0 focus:outline-none text-claude-text placeholder:text-claude-subtext/40 font-sans text-[15px] leading-relaxed max-h-[200px] overflow-hidden"
+            style={{
+              minHeight: '40px'
+            }} />
+
 
           <div className="flex items-center gap-2 flex-shrink-0">
-            <button type="button" className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200" aria-label="AI suggestions">
+            <button
+              type="button"
+              className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200"
+              aria-label="AI suggestions">
+
               <Sparkles size={18} strokeWidth={2} />
             </button>
-            <button onClick={handleSubmit} disabled={!input.trim() || disabled} className={`p-2 rounded-lg transition-all duration-200 ${input.trim() && !disabled ? 'bg-claude-text text-white hover:bg-claude-text/90 shadow-sm active:scale-95' : 'bg-claude-subtext/10 text-claude-subtext/30 cursor-not-allowed'}`} aria-label="Send message">
+            <button
+              onClick={handleSubmit}
+              disabled={!input.trim() || disabled}
+              className={`p-2 rounded-lg transition-all duration-200 ${input.trim() && !disabled ? 'bg-claude-text text-white hover:bg-claude-text/90 shadow-sm active:scale-95' : 'bg-claude-subtext/10 text-claude-subtext/30 cursor-not-allowed'}`}
+              aria-label="Send message">
+
               <Send size={18} strokeWidth={2} />
             </button>
           </div>
         </div>
       </div>
-    </div>;
+    </div>);
+
 }
