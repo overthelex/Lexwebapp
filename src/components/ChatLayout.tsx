@@ -24,7 +24,14 @@ import { LegislationStatisticsPage } from './LegislationStatisticsPage';
 import { VotingAnalysisPage } from './VotingAnalysisPage';
 import { LegalCodesLibraryPage } from './LegalCodesLibraryPage';
 import { HistoricalAnalysisPage } from './HistoricalAnalysisPage';
-import { PanelRightOpen, FileText, Share2, X } from 'lucide-react';
+import {
+  PanelRightOpen,
+  PanelLeftOpen,
+  FileText,
+  Share2,
+  X,
+  Menu } from
+'lucide-react';
 type ViewState =
 'chat' |
 'profile' |
@@ -69,8 +76,8 @@ interface Client {
   type: 'individual' | 'corporate';
 }
 export function ChatLayout() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isRightPanelOpen, setIsRightPanelOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isRightPanelOpen, setIsRightPanelOpen] = useState(true);
   const [messages, setMessages] = useState<MessageProps[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [currentView, setCurrentView] = useState<ViewState>('chat');
@@ -157,7 +164,7 @@ export function ChatLayout() {
   };
   // Get page title based on current view
   const getPageTitle = () => {
-    if (currentView === 'chat') return null;
+    if (currentView === 'chat') return 'Чат';
     if (currentView === 'profile') return 'Профіль';
     if (currentView === 'judges') return 'Судді';
     if (currentView === 'lawyers') return 'Адвокати';
@@ -178,7 +185,7 @@ export function ChatLayout() {
     if (currentView === 'historical-analysis') return 'Історичний аналіз';
     if (selectedPerson) return selectedPerson.data.name;
     if (selectedClient) return selectedClient.name;
-    return null;
+    return 'Чат';
   };
   // If on login page, show only login
   if (currentView === 'login') {
@@ -390,125 +397,114 @@ export function ChatLayout() {
   const pageTitle = getPageTitle();
   return (
     <div className="flex h-screen bg-claude-bg overflow-hidden">
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
-        onNewChat={handleNewChat}
-        onProfileClick={() => {
-          setCurrentView('profile');
-          setIsSidebarOpen(false);
-        }}
-        onJudgesClick={() => {
-          setCurrentView('judges');
-          setIsSidebarOpen(false);
-        }}
-        onLawyersClick={() => {
-          setCurrentView('lawyers');
-          setIsSidebarOpen(false);
-        }}
-        onClientsClick={() => {
-          setCurrentView('clients');
-          setIsSidebarOpen(false);
-        }}
-        onCasesClick={() => {
-          setCurrentView('cases');
-          setIsSidebarOpen(false);
-        }}
-        onHistoryClick={() => {
-          setCurrentView('history');
-          setIsSidebarOpen(false);
-        }}
-        onDecisionsClick={() => {
-          setCurrentView('decisions');
-          setIsSidebarOpen(false);
-        }}
-        onLegislationMonitoringClick={() => {
-          setCurrentView('legislation-monitoring');
-          setIsSidebarOpen(false);
-        }}
-        onCourtPracticeAnalysisClick={() => {
-          setCurrentView('court-practice-analysis');
-          setIsSidebarOpen(false);
-        }}
-        onLegalInitiativesClick={() => {
-          setCurrentView('legal-initiatives');
-          setIsSidebarOpen(false);
-        }}
-        onLegislationStatisticsClick={() => {
-          setCurrentView('legislation-statistics');
-          setIsSidebarOpen(false);
-        }}
-        onVotingAnalysisClick={() => {
-          setCurrentView('voting-analysis');
-          setIsSidebarOpen(false);
-        }}
-        onLegalCodesLibraryClick={() => {
-          setCurrentView('legal-codes-library');
-          setIsSidebarOpen(false);
-        }}
-        onHistoricalAnalysisClick={() => {
-          setCurrentView('historical-analysis');
-          setIsSidebarOpen(false);
-        }}
-        onLogout={handleLogout} />
+      {/* Sidebar */}
+      <div className={`${isSidebarOpen ? 'block' : 'hidden'}`}>
+        <Sidebar
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
+          onNewChat={handleNewChat}
+          onProfileClick={() => {
+            setCurrentView('profile');
+            setIsSidebarOpen(false);
+          }}
+          onJudgesClick={() => {
+            setCurrentView('judges');
+            setIsSidebarOpen(false);
+          }}
+          onLawyersClick={() => {
+            setCurrentView('lawyers');
+            setIsSidebarOpen(false);
+          }}
+          onClientsClick={() => {
+            setCurrentView('clients');
+            setIsSidebarOpen(false);
+          }}
+          onCasesClick={() => {
+            setCurrentView('cases');
+            setIsSidebarOpen(false);
+          }}
+          onHistoryClick={() => {
+            setCurrentView('history');
+            setIsSidebarOpen(false);
+          }}
+          onDecisionsClick={() => {
+            setCurrentView('decisions');
+            setIsSidebarOpen(false);
+          }}
+          onLegislationMonitoringClick={() => {
+            setCurrentView('legislation-monitoring');
+            setIsSidebarOpen(false);
+          }}
+          onCourtPracticeAnalysisClick={() => {
+            setCurrentView('court-practice-analysis');
+            setIsSidebarOpen(false);
+          }}
+          onLegalInitiativesClick={() => {
+            setCurrentView('legal-initiatives');
+            setIsSidebarOpen(false);
+          }}
+          onLegislationStatisticsClick={() => {
+            setCurrentView('legislation-statistics');
+            setIsSidebarOpen(false);
+          }}
+          onVotingAnalysisClick={() => {
+            setCurrentView('voting-analysis');
+            setIsSidebarOpen(false);
+          }}
+          onLegalCodesLibraryClick={() => {
+            setCurrentView('legal-codes-library');
+            setIsSidebarOpen(false);
+          }}
+          onHistoricalAnalysisClick={() => {
+            setCurrentView('historical-analysis');
+            setIsSidebarOpen(false);
+          }}
+          onLogout={handleLogout} />
 
+      </div>
 
       <main className="flex-1 flex flex-col min-w-0 relative h-full">
+        {/* Desktop Header */}
         <header className="hidden lg:flex items-center justify-between px-6 py-3 border-b border-claude-border bg-white/80 backdrop-blur-sm sticky top-0 z-30">
-          <div className="flex items-center gap-3">
-            <h1 className="font-sans text-[15px] text-claude-text font-medium">
-              {currentView === 'chat' ?
-              'Підключення к API Ради без ключей' :
-              currentView === 'profile' ?
-              'Профіль' :
-              currentView === 'judges' ?
-              'Судді' :
-              currentView === 'lawyers' ?
-              'Адвокати' :
-              currentView === 'clients' ?
-              'Клієнти' :
-              currentView === 'cases' ?
-              'Справи' :
-              currentView === 'history' ?
-              'Історія запитів' :
-              currentView === 'decisions' ?
-              'Пошук судових рішень' :
-              currentView === 'client-messaging' ?
-              'Відправити повідомлення' :
-              currentView === 'case-analysis' ?
-              'Аналіз справи' :
-              currentView === 'legislation-monitoring' ?
-              'Моніторинг законодавства' :
-              currentView === 'court-practice-analysis' ?
-              'Аналіз судової практики' :
-              currentView === 'legal-initiatives' ?
-              'Законодавчі ініціативи' :
-              currentView ===
-              'legislation-statistics' ?
-              'Статистика законів' :
-              currentView === 'voting-analysis' ?
-              'Аналіз голосувань' :
-              selectedPerson ?
-              selectedPerson.data.name :
-              selectedClient ?
-              selectedClient.name :
-              ''}
+          {/* Left: Toggle button */}
+          <div className="flex items-center gap-3 w-[200px]">
+            <button
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200"
+              title={isSidebarOpen ? 'Сховати меню' : 'Показати меню'}>
+
+              {isSidebarOpen ?
+              <X size={18} strokeWidth={2} /> :
+
+              <Menu size={18} strokeWidth={2} />
+              }
+            </button>
+          </div>
+
+          {/* Center: Page title */}
+          <div className="flex-1 flex items-center justify-center">
+            <h1 className="font-sans text-lg text-claude-text font-medium">
+              {pageTitle}
             </h1>
           </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setCurrentView('case-analysis')}
-              className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200">
 
-              <FileText size={18} strokeWidth={2} />
-            </button>
-            <button className="px-3 py-1.5 text-[13px] font-medium text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200 flex items-center gap-2 font-sans">
-              <Share2 size={14} strokeWidth={2} />
-              Share
+          {/* Right: Toggle right panel button */}
+          <div className="flex items-center justify-end gap-2 w-[200px]">
+            <button
+              onClick={() => setIsRightPanelOpen(!isRightPanelOpen)}
+              className="p-2 text-claude-subtext hover:text-claude-text hover:bg-claude-subtext/8 rounded-lg transition-all duration-200"
+              title={isRightPanelOpen ? 'Сховати панель' : 'Показати панель'}>
+
+              {isRightPanelOpen ?
+              <X size={18} strokeWidth={2} /> :
+
+              <PanelRightOpen size={18} strokeWidth={2} />
+              }
             </button>
           </div>
         </header>
 
+        {/* Mobile Header */}
         <header className="lg:hidden flex items-center justify-between px-4 py-2.5 border-b border-claude-border bg-white/80 backdrop-blur-md sticky top-0 z-30">
           <button
             onClick={() => setIsSidebarOpen(true)}
@@ -522,7 +518,7 @@ export function ChatLayout() {
           </button>
           <div className="flex items-center">
             {pageTitle ?
-            <h1 className="text-base font-serif text-claude-text font-medium">
+            <h1 className="text-base font-sans text-claude-text font-medium">
                 {pageTitle}
               </h1> :
 
@@ -546,10 +542,13 @@ export function ChatLayout() {
         </div>
       </main>
 
-      <RightPanel
-        isOpen={isRightPanelOpen}
-        onClose={() => setIsRightPanelOpen(false)} />
+      {/* Right Panel */}
+      <div className={`${isRightPanelOpen ? 'block' : 'hidden'}`}>
+        <RightPanel
+          isOpen={isRightPanelOpen}
+          onClose={() => setIsRightPanelOpen(false)} />
 
+      </div>
     </div>);
 
 }

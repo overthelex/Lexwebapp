@@ -93,7 +93,7 @@ export function LoginPage() {
 
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-serif text-claude-text font-medium mb-2">
+            <h1 className="text-3xl font-sans text-claude-text font-medium mb-2">
               {isLogin ? 'Вход в систему' : 'Регистрация'}
             </h1>
             <p className="text-claude-subtext font-sans text-sm">
